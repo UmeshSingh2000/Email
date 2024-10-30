@@ -26,7 +26,8 @@ Here're some of the project's best features:
 <p>1. Clone the repository:</p>
 
 ```
-git clone https://github.com/your-username/email-client-mock.git cd email-client-mock
+git clone https://github.com/UmeshSingh2000/Email-Client-Mock-App-
+cd email-client-mock
 ```
 
 <p>2. Install dependencies:</p>
