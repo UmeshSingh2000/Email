@@ -11,6 +11,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+  const [filteredEmails, setFilteredEmails] = useState(null);
   const [currentPage, setCurrentPage] = useState(1); // Move page state here
   const dispatch = useDispatch();
 
@@ -46,6 +47,27 @@ const App = () => {
     setCurrentPage(page); // Update page state to trigger data fetch for the selected page
   };
 
+  //function to show all emails
+  const toggleAll = ()=>{
+    setFilteredEmails(emails);
+  }
+  //function to show all read emails
+  const toggleRead = ()=>{
+    const readEmails = emails.filter((email)=>email.read);
+    setFilteredEmails(readEmails)
+  }
+  //function to show all unread emails
+  const toggleUnread = ()=>{
+    const unreadEmails = emails.filter((email)=>!email.read);
+    setFilteredEmails(unreadEmails)
+  }
+  //function to show all favorite emails
+  const toggleFav = ()=>{
+    const favEmails = emails.filter((email)=>email.favorite)
+    setFilteredEmails(favEmails)
+  }
+
+  const displayEmail = filteredEmails || emails;
   if (loading) return <Loader />;
 
   return (
@@ -64,12 +86,13 @@ const App = () => {
         <div className='flex gap-3 items-center'>
           <h1>Filter By: </h1>
           <ul className='flex items-center gap-2'>
-            <li className='cursor-pointer font-medium hover:bg-borderColor p-2 rounded-full'>Unread</li>
-            <li className='cursor-pointer font-medium hover:bg-borderColor p-2 rounded-full'>Read</li>
-            <li className='cursor-pointer font-medium hover:bg-borderColor p-2 rounded-full'>Favorites</li>
+          <li className='cursor-pointer font-medium hover:bg-borderColor p-2 rounded-full' onClick={toggleAll}>All</li>
+            <li className='cursor-pointer font-medium hover:bg-borderColor p-2 rounded-full' onClick={toggleUnread}>Unread</li>
+            <li className='cursor-pointer font-medium hover:bg-borderColor p-2 rounded-full' onClick={toggleRead}>Read</li>
+            <li className='cursor-pointer font-medium hover:bg-borderColor p-2 rounded-full' onClick={toggleFav}>Favorites</li>
           </ul>
         </div>
-        {emails.map((mail) => (
+        {displayEmail.map((mail) => (
           <EmailBox
             key={mail.id}
             id={mail.id}
