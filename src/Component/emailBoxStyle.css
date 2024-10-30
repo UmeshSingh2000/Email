@@ -1,0 +1,16 @@
+.emailBox {
+    .fav {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    &:hover .fav {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.emailBox.clicked {
+    border: 2px solid #e54065;
+    background-color: #f4f5f9;
+}
